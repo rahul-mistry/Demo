@@ -22,6 +22,7 @@ namespace Framework.PageObjects
       
         public static string strFirstName;
         public static string strLastName;
+        public static string Emailid;
 
         public IWebDriver Demo_MouseHover(IWebDriver driver)
         {

@@ -179,6 +179,12 @@ namespace Framework.Init
                     */
                 
                 driver.Manage().Window.Maximize();
+                string s = ((RemoteWebDriver)driver).Capabilities.BrowserName;
+                Console.WriteLine("Browser name: " + s);
+                string v = ((RemoteWebDriver)driver).Capabilities.Version;
+                Console.WriteLine("Browser Version: " + v);
+                string os = ((RemoteWebDriver)driver).Capabilities.Platform.ToString();
+                Console.WriteLine("OS: " + os);
             }
             catch (Exception ex)
             {

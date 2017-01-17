@@ -6,6 +6,7 @@ using Framework.Init;
 using NUnit.Framework;
 using TestCases;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace TestCases
 {
@@ -77,19 +78,32 @@ namespace TestCases
          [TestFixtureTearDown]
         public void zzzGenerateSummaryReport()
         {
-            //string[] Temp = { intLoginPassCnt.ToString(), intLoginFailCnt.ToString(), intLoginWarningCnt.ToString() };
-            //System.IO.File.AppendAllLines(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html", Temp);
 
-            string text = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html");
-            text = text.Replace("var Pass; ", "var Pass = " + intLoginPassCnt + ";");
-            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html", text);
-            text = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html");
-            text = text.Replace("var Fail;", "var Fail = " + intLoginFailCnt + ";");
-            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html", text);
-            text = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html");
-            text = text.Replace("var NotTested;", "var NotTested = " + intLoginWarningCnt + ";");
-            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo\bin\Debug\Report\pages\Automation Dashboard.html", text);
+            //Pass
+            string text1 = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html");
+            string input1 = text1;
+            string pattern1 = @"var Pass = (\d+)";
+            Regex rex1 = new Regex(pattern1);
+            string rersult1 = rex1.Replace(input1, "var Pass = " + intLoginPassCnt);
+            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html", rersult1);
 
+            //Fail
+            string text2 = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html");
+            string input2 = text2;
+            string pattern2 = @"var Fail = (\d+)";
+            Regex rex2 = new Regex(pattern2);
+            string rersult2 = rex2.Replace(input2, "var Fail = " + intLoginFailCnt);
+            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html", rersult2);
+
+            //Not Tested
+            string text3 = File.ReadAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html");
+            string input3 = text3;
+            string pattern3 = @"var NotTested = (\d+)";
+            Regex rex3 = new Regex(pattern3);
+            string rersult3 = rex3.Replace(input3, "var NotTested = " + intLoginWarningCnt);
+            File.WriteAllText(@"C:\Users\HP-PC\Desktop\Demo1\bin\Debug\Report\pages\Automation Dashboard.html", rersult3);
+
+            
             try
             {
                 Report.AddToHtmlSummaryReport("Gmail Test Cases", intLoginPassCnt, intLoginFailCnt, intLoginWarningCnt);
